@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --header-height: 50px;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+.p-overlaypanel-content {
+  padding: 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 1.5rem 0 1rem;
+  margin-top: 1.5rem;
+  margin-top: 1.5rem;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--surface-900);
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}

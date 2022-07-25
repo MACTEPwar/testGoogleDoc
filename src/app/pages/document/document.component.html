@@ -1,0 +1,3 @@
+<div class="grid container" *ngIf="frameUrl != ''">
+  <iframe [src]="frameUrl | safe" (load)="afterLoadIframe($event)"></iframe>
+</div>

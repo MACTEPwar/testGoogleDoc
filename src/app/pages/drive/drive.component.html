@@ -1,0 +1,57 @@
+<div class="grid">
+  <div class="col">
+    <p-breadcrumb
+      [model]="(items | async)!"
+      [home]="{ icon: 'pi pi-inbox' }"
+    ></p-breadcrumb>
+  </div>
+  <div class="col-fixed" style="width: 50px">
+    <button
+      class="h-full w-full p-button-icon-only"
+      type="button"
+      pButton
+      (click)="op.toggle($event)"
+    >
+      <i class="pi pi-ellipsis-v"></i>
+    </button>
+  </div>
+</div>
+<div class="grid mt-1">
+  <div
+    class="col-12 md:col-6 xl:col-2"
+    *ngFor="let file of files | async"
+    (click)="openFile(file)"
+  >
+    <div
+      class="p-3 border-1 surface-border flex align-items-center justify-content-between hover:surface-100 cursor-pointer border-round"
+    >
+      <!-- pi-folder -->
+      <!-- pi-file -->
+      <div class="flex align-items-center">
+        <i
+          class="text-2xl mr-3 pi"
+          [class]="file.mimeType | iconByMimeType"
+        ></i>
+        <span class="text-900 text-lg font-medium">{{ file.title }}</span>
+      </div>
+      <!-- <span>12</span> -->
+    </div>
+  </div>
+</div>
+
+<p-overlayPanel styleClass="p-2" #op>
+  <ng-template pTemplate>
+    <div
+      class="grid my-0 hover:surface-200 cursor-pointer"
+      (click)="showUploadFileView()"
+    >
+      <div class="col">Загрузить файл</div>
+    </div>
+    <div
+      class="grid my-0 hover:surface-200 cursor-pointer"
+      (click)="showCreateFolderView()"
+    >
+      <div class="col">Создать папку</div>
+    </div>
+  </ng-template>
+</p-overlayPanel>

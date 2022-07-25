@@ -1,0 +1,13 @@
+<div class="card p-fluid" [formGroup]="profileForm">
+  <h5>Назва папки</h5>
+  <div class="grid formgrid">
+    <div class="col-12">
+      <input type="text" formControlName="title" pInputText />
+    </div>
+  </div>
+  <div class="grid formgrid mt-3">
+    <div class="col-12">
+      <button pButton type="button" label="Створити" (click)="execute()"></button>
+    </div>
+  </div>
+</div>
