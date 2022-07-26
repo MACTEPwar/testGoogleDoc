@@ -1,8 +1,16 @@
 <div class="grid">
   <div class="col">
     <p-breadcrumb
+      (onItemClick)="func($event)"
       [model]="(items | async)!"
-      [home]="{ icon: 'pi pi-inbox' }"
+      [home]="{
+        icon: 'pi pi-inbox',
+        routerLink: '/drive',
+        queryParams: {
+          path: 'root',
+          id: tabId
+        }
+      }"
     ></p-breadcrumb>
   </div>
   <div class="col-fixed" style="width: 50px">
@@ -45,13 +53,13 @@
       class="grid my-0 hover:surface-200 cursor-pointer"
       (click)="showUploadFileView()"
     >
-      <div class="col">Загрузить файл</div>
+      <div class="col">Завантажити файл</div>
     </div>
     <div
       class="grid my-0 hover:surface-200 cursor-pointer"
       (click)="showCreateFolderView()"
     >
-      <div class="col">Создать папку</div>
+      <div class="col">Додати папку</div>
     </div>
   </ng-template>
 </p-overlayPanel>

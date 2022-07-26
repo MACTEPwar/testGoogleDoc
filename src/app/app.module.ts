@@ -1,3 +1,4 @@
+import { FileModule } from './features/file/file.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -23,6 +24,7 @@ import { UploadFileComponent } from './components/upload-file/upload-file.compon
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IconByMimeTypePipe } from './pipes/icon-by-mime-type.pipe';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { IconByMimeTypePipe } from './pipes/icon-by-mime-type.pipe';
     InputTextModule,
     FormsModule,
     ReactiveFormsModule,
+    FileModule,
+    FileUploadModule,
   ],
   providers: [
     GoogleDriveService,

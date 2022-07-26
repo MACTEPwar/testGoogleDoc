@@ -6,25 +6,6 @@ import { Router } from '@angular/router';
 @Injectable()
 export class TabService {
   tabs: BehaviorSubject<Array<Tab>> = new BehaviorSubject<Array<Tab>>([
-    // {
-    //   id: '',
-    //   name: 'Drive',
-    //   route: ['drive'],
-    //   queryParams: {
-    //     path: 'root',
-    //   },
-    //   isClosable: false,
-    //   isDistinctingOpen: false,
-    //   isActive: false,
-    // } as Tab,
-    // {
-    //   id: '',
-    //   name: 'Templates',
-    //   route: ['templates'],
-    //   isClosable: false,
-    //   isDistinctingOpen: false,
-    //   isActive: false,
-    // } as Tab,
     new Tab(['drive'], 'Диск')
       .changeOptions({
         isClosable: false,
@@ -34,6 +15,9 @@ export class TabService {
       isClosable: false,
     }),
   ]);
+  // не работает пока что
+  prevSelectedTabId: string | null = null;
+
   constructor(private router: Router) {}
 
   openTab(tab: Tab): void {
@@ -51,5 +35,13 @@ export class TabService {
     this.router.navigate(tabs[index].route, {
       queryParams: tabs[index].queryParams ?? null,
     });
+  }
+
+  closeTab(index: number): void {
+    const tabs = this.tabs.getValue();
+    if (tabs[index].isActive) {
+      this.selectTab(index - 1);
+    }
+    this.tabs.next([...tabs.filter((f, i) => i !== index)]);
   }
 }

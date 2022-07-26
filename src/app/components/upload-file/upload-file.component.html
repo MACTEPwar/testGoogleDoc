@@ -1,1 +1,49 @@
-<p>upload-file works!</p>
+<div class="card p-fluid">
+  <h5>Оберiть файл</h5>
+  <div class="grid formgrid">
+    <div class="col-12">
+      <p-fileUpload
+        name="myfile[]"
+        [showUploadButton]="false"
+        [showCancelButton]="false"
+        [customUpload]="true"
+        styleClass="border-1 surface-border surface-card p-0 border-round mb-4 toolbar-none"
+        (onSelect)="onFileSelect($event)"
+        #fileUploader
+      >
+        <ng-template pTemplate="toolbar">T</ng-template>
+        <ng-template pTemplate="file"></ng-template>
+        <ng-template pTemplate="content" let-files>
+          <div class="h-10rem m-1 border-round" (click)="fileUploader.choose()">
+            <div
+              class="flex flex-column w-full h-full justify-content-center align-items-center cursor-pointer"
+            >
+              <ng-container *ngIf="file === null; else haveFile">
+                <i class="pi pi-fw pi-file text-4xl text-primary"></i
+                ><span class="block font-semibold text-900 text-lg mt-3"
+                  >Перетягнiть або оберiть файл</span
+                >
+              </ng-container>
+              <ng-template #haveFile>
+                <i class="pi pi-fw pi-file text-4xl text-primary"></i
+                ><span class="block font-semibold text-900 text-lg mt-3">{{
+                  file!.name
+                }}</span>
+              </ng-template>
+            </div>
+          </div>
+        </ng-template>
+      </p-fileUpload>
+    </div>
+  </div>
+  <div class="grid formgrid mt-3">
+    <div class="col-12">
+      <button
+        pButton
+        type="button"
+        label="Завантажити"
+        (click)="execute()"
+      ></button>
+    </div>
+  </div>
+</div>

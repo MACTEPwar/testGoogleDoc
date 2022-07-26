@@ -8,7 +8,9 @@
     >
       <span class="icon"></span>
       <span class="text">{{ tab.name }}</span>
-      <div class="close" *ngIf="tab.isClosable">&times;</div>
+      <div class="close" *ngIf="tab.isClosable" (click)="closeTab(ind)">
+        &times;
+      </div>
     </div>
   </div>
   <div id="tab-content">

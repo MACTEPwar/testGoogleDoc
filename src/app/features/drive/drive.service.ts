@@ -28,7 +28,7 @@ export class DriveService {
     private readonly activatedRoute: ActivatedRoute
   ) {}
 
-  openFile(file: File, tabService: TabService): void {
+  openFile(file: File, tabService: TabService, tabId: string): void {
     if (file.mimeType === 'application/vnd.google-apps.folder') {
       const newPath = `${this.activatedRoute.snapshot.queryParams.path}/${file.id}`;
       let currentTab = tabService.tabs
@@ -37,6 +37,18 @@ export class DriveService {
       currentTab = currentTab?.changeQueryParams({
         path: newPath,
       });
+
+      this.breadcrumbItems.next([
+        ...this.breadcrumbItems.getValue(),
+        {
+          label: file.title,
+          routerLink: '/drive',
+          queryParams: {
+            path: newPath,
+            id: tabId,
+          },
+        },
+      ]);
 
       this.router.navigate(['drive'], {
         queryParams: {
@@ -54,12 +66,14 @@ export class DriveService {
   getFilesByFolder(route: Params): void {
     const pathList = (route.path as string).split('/');
 
-    this.generateBreadcrumbs(pathList);
+    // this.generateBreadcrumbs(pathList);
 
     let currentFolderId: string | null = pathList[pathList.length - 1];
     currentFolderId = currentFolderId === 'root' ? null : currentFolderId;
 
     this.lastFolderId = currentFolderId;
+
+    // alert(this.lastFolderId)
 
     this.googleDriveService
       .getFilesByFolder$(currentFolderId)
@@ -75,7 +89,31 @@ export class DriveService {
     });
   }
 
-  private generateBreadcrumbs(idList: Array<string>): void {
-    
+  private generateBreadcrumbs(idList: Array<string>): void {}
+
+  changeBreadcrumbs(
+    path: string,
+    tabService: TabService
+  ): void {
+    let currentTab = tabService.tabs
+      .getValue()
+      .find((f) => f.id === this.activatedRoute.snapshot.queryParams.id);
+    currentTab = currentTab?.changeQueryParams({
+      path,
+    });
+
+    const currentBreadcrumbs = this.breadcrumbItems.getValue();
+    let flag = false;
+    const temp: MenuItem[] = [];
+    currentBreadcrumbs.forEach((f) => {
+      if (path === 'root') {
+        flag = true;
+      }
+      if (flag === false) {
+        temp.push(f as MenuItem);
+      }
+      flag = f.queryParams?.path === path;
+    });
+    this.breadcrumbItems.next(temp);
   }
 }

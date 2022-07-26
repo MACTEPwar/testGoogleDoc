@@ -33,6 +33,10 @@ export class AppComponent {
     this.tabService.selectTab(index);
   }
 
+  closeTab(index: number): void {
+    this.tabService.closeTab(index);
+  }
+
   // uploadFilev2(): void {
   //   this.googleDrive.uploadFileAPIv2();
   // }
